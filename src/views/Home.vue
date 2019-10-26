@@ -10,7 +10,6 @@
 export default {
   name: 'home',
   components: {
-    HelloWorld
   }
 }
 </script>
