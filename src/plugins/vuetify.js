@@ -5,11 +5,12 @@ import ru from 'vuetify/es5/locale/ru';
 Vue.use(Vuetify);
 
 export default new Vuetify({
-    lang: {
-      locales: { ru },
-      current: 'ru',
-    },
+  lang: {
+    locales: { ru },
+    current: 'ru',
+  },
   icons: {
     iconfont: 'mdi',
   },
+  theme: { dark: true },
 });
