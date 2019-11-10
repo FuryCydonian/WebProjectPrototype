@@ -13,6 +13,7 @@
         <v-list-item
           v-for="item in items"
           :key="item.title"
+          :to="item.url"
           link
         >
           <v-list-item-icon>
@@ -30,7 +31,7 @@
       app
       clipped-left
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" :class="hidden-md-and-up"/>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="hidden-lg-and-up"/>
 
       <v-toolbar-title>
         <router-link to="/" tag="span" class="pointer">ShowGeek</router-link>
@@ -126,12 +127,13 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { title: 'Профиль', icon: 'mdi-account-outline' },
-      { title: 'Календарь', icon: 'mdi-calendar-month' },
-      { title: 'Диалоги', icon: 'mdi-forum-outline' },
-      { title: 'Закладки', icon: 'mdi-bookmark-multiple-outline' },
-      { title: 'Оповещения', icon: 'mdi-bell-ring-outline' },
-      { title: 'Настройки', icon: 'mdi-settings-outline' },
+      { title: 'Профиль', icon: 'mdi-account-outline', url: '/profile'},
+      { title: 'Календарь', icon: 'mdi-calendar-month', url: '/calendar'},
+      { title: 'Диалоги', icon: 'mdi-forum-outline', url: '/dialogue'},
+      { title: 'Закладки', icon: 'mdi-bookmark-multiple-outline', url: '/bookmarks'},
+      { title: 'Оповещения', icon: 'mdi-bell-ring-outline', url: '/alerts'},
+      { title: 'Настройки', icon: 'mdi-settings-outline', url: '/settings'},
+      { title: 'О нас', icon: 'mdi-settings-outline', url: '/about'}
     ],
     right: null,
   }),
