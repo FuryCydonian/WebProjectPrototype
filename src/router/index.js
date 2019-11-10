@@ -9,7 +9,7 @@ import Bookmarks from '../views/User/Bookmarks.vue'
 import Alerts from '../views/User/Alerts.vue'
 import Settings from '../views/Settings.vue'
 import Login from '../views/Auth/Login.vue'
-import Registration from '../views/Auth/Trgistration.vue'
+import Registration from '../views/Auth/Registration.vue'
 
 Vue.use(VueRouter)
 
