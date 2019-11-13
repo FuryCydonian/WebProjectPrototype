@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <v-layout row>
-      <v-flex xs12>
-        <h1>SETTINGS</h1>
-      </v-flex>
-    </v-layout>
+    <v-row>
+      <v-col xs="12" sm="6">
+        <h1>Settings</h1>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

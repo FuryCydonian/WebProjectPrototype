@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <v-layout row>
-      <v-flex xs12>
+    <v-row>
+      <v-col xs="12" sm="6">
         <h1>PROFILE</h1>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -14,6 +14,7 @@
 export default {
   name: 'profile',
   components: {
+  
   },
   data: () => ({
     
