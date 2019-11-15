@@ -14,62 +14,49 @@
       >
         <v-card class="elevation-12">
           <v-toolbar
-            color="primary"
+            color="blue-grey darken-1"
             dark
             flat
           >
-            <v-toolbar-title>Login form</v-toolbar-title>
-            <v-spacer />
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon>mdi-code-tags</v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  large
-                  href="https://codepen.io/johnjleider/pen/pMvGQO"
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon>mdi-codepen</v-icon>
-                </v-btn>
-              </template>
-              <span>Codepen</span>
-            </v-tooltip>
+            <v-toolbar-title>
+              Вход
+            </v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-form>
+            <v-form
+              ref="form"
+              v-model="valid"
+              validation
+            >
               <v-text-field
                 label="Login"
                 name="login"
-                prepend-icon="person"
+                prepend-icon="mdi-login"
                 type="text"
+                v-model="email"
+                :rules="emailRules"
               />
 
               <v-text-field
                 id="password"
                 label="Password"
                 name="password"
-                prepend-icon="lock"
+                prepend-icon="mdi-lock-outline"
                 type="password"
+                :counter="8"
+                v-model="password"
+                :rules="passwordRules"
               />
             </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary">Login</v-btn>
+            <v-btn 
+              color="blue-grey darken-1"
+              @click="onSubmit"
+            >
+              Войти
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -85,7 +72,29 @@ export default {
   components: {
   },
   data: () => ({
-    
-  })
+    email: '',
+    password: '',
+    valid: false,
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+    ],
+    passwordRules: [
+      v => !!v || 'Password is required',
+      v => (v && v.length >= 8) || 'Password must be more or equal than 8 characters',
+    ]
+  }),
+  methods: {
+    onSubmit: () => {
+      //logic
+      if (this.$refs.form.validate()) {
+        const user = {
+          email: this.email,
+          password: this.password
+        }
+        console.log(user)
+      }
+    }
+  }
 }
 </script>
