@@ -30,7 +30,7 @@
               
             >
               <v-text-field
-                label="Login"
+                label="Логин (эл. почта)"
                 name="login"
                 prepend-icon="mdi-login"
                 type="email"
@@ -42,7 +42,7 @@
 
               <v-text-field
                 id="password"
-                label="Password"
+                label="Пароль"
                 name="password"
                 prepend-icon="mdi-lock-outline"
                 type="password"

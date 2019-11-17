@@ -26,28 +26,42 @@
             <v-form
               ref="form"
               v-model="valid"
-              :lazy-validation="lazy"
+              lazy-validation
               
             >
               <v-text-field
-                label="Login"
+                label="Логин (эл. почта)"
                 name="login"
                 prepend-icon="mdi-login"
                 type="email"
-                @blur="$v.email.$touch()"
                 v-model="email"
                 :rules="emailRules"
                 required
+                dark
               />
 
               <v-text-field
                 id="password"
-                label="Password"
+                label="Пароль"
                 name="password"
                 prepend-icon="mdi-lock-outline"
                 type="password"
                 v-model="password"
                 :rules="passwordRules"
+                
+              />
+
+              <v-text-field
+                id="confirmPassword"
+                label="Подтвердите пароль"
+                name="confirmPassword"
+                prepend-icon="mdi-lock-outline"
+                type="password"
+                :error="$v.confirmPassword.$error"
+                hint="Пароли должны совпадать"
+                @blur="$v.confirmPassword.$touch()"
+                v-model="confirmPassword"
+                :rules="confirmPasswordRules"
                 
               />
             </v-form>
@@ -75,9 +89,10 @@
 
 <script>
 // @ is an alias to /src
+
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
-import { required, minLength, email } from 'vuelidate/lib/validators'
+import { required, sameAs } from 'vuelidate/lib/validators'
 
 Vue.use(Vuelidate)
 
@@ -89,25 +104,28 @@ export default {
   data: () => ({
     email: '',
     password: '',
-    lazy: true,
+    confirmPassword: '',
     valid: false,
     emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      v => !!v || 'Введите эл. почту',
+      v => /.+@.+\..+/.test(v) || 'Неправильный формат эл. почты',
     ],
     passwordRules: [
-      v => !!v || 'Password is required',
-      v => (v.length >= 8) || 'Password must be more or equal than 8 characters',
+      v => !!v || 'Введите пароль',
+      v => (v.length >= 8) || 'Пароль должен содержать как минимум 8 символов',
+    ],
+    confirmPasswordRules: [
+      v => !!v || 'Введите пароль',
+      // v => (v.length >= 8) || 'Password must be more or equal than 8 characters',
+      // function(v) { return v === this.password || 'Пароли должны совпадать'}
+      
     ]
   }),
+  
   validations: {
-    email: {
+    confirmPassword: {
       required,
-      email
-    },
-    password: {
-      required,
-      minLength
+      sameAs: sameAs('password')
     }
   },
   methods: {
@@ -118,9 +136,11 @@ export default {
           password: this.password
         }
         console.log(user)
+        
       }
     }
   }
   
 }
+
 </script>
