@@ -26,15 +26,18 @@
             <v-form
               ref="form"
               v-model="valid"
-              validation
+              :lazy-validation="lazy"
+              
             >
               <v-text-field
                 label="Login"
                 name="login"
                 prepend-icon="mdi-login"
-                type="text"
+                type="email"
+                @blur="$v.email.$touch()"
                 v-model="email"
                 :rules="emailRules"
+                required
               />
 
               <v-text-field
@@ -43,9 +46,9 @@
                 name="password"
                 prepend-icon="mdi-lock-outline"
                 type="password"
-                :counter="8"
                 v-model="password"
                 :rules="passwordRules"
+                
               />
             </v-form>
           </v-card-text>
@@ -54,26 +57,39 @@
             <v-btn 
               color="blue-grey darken-1"
               @click="onSubmit"
+              :disabled="!(valid)"
             >
               Войти
             </v-btn>
           </v-card-actions>
         </v-card>
+
+        <!-- <pre>
+          {{ $v.email }}
+        </pre> -->
       </v-col>
     </v-row>
   </v-container>
+  
 </template>
 
 <script>
 // @ is an alias to /src
+import Vue from 'vue'
+import Vuelidate from 'vuelidate'
+import { required, minLength, email } from 'vuelidate/lib/validators'
+
+Vue.use(Vuelidate)
 
 export default {
+
   name: 'login',
   components: {
   },
   data: () => ({
     email: '',
     password: '',
+    lazy: true,
     valid: false,
     emailRules: [
       v => !!v || 'E-mail is required',
@@ -81,12 +97,21 @@ export default {
     ],
     passwordRules: [
       v => !!v || 'Password is required',
-      v => (v && v.length >= 8) || 'Password must be more or equal than 8 characters',
+      v => (v.length >= 8) || 'Password must be more or equal than 8 characters',
     ]
   }),
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength
+    }
+  },
   methods: {
-    onSubmit: () => {
-      //logic
+    onSubmit () {
       if (this.$refs.form.validate()) {
         const user = {
           email: this.email,
@@ -96,5 +121,6 @@ export default {
       }
     }
   }
+  
 }
 </script>

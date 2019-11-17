@@ -45,7 +45,6 @@
           :key="auth.title"
           :to="auth.url"
           color="grey darken-3"
-          flat
         >
           <v-icon left>{{auth.icon}}</v-icon>
           {{auth.title}}
