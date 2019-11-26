@@ -83,6 +83,25 @@
       <router-view></router-view>
     </v-content>
 
+    <template v-if="error">
+      <v-snackbar
+        :timeout="5000"
+        color="error"
+        :multi-line="true"
+        @input="closeError"
+        :value="true"
+      >
+        {{error}}
+        <v-btn
+          dark
+          text
+          @click="closeError"
+        >
+          Закрыть
+        </v-btn>
+      </v-snackbar>
+    </template>
+
     <v-footer app>
       <span>&copy; 2019</span>
     </v-footer>
@@ -108,10 +127,41 @@ export default {
     ],
     auths: [
       { title: 'Войти', icon: 'mdi-login', url: '/login'},
-      { title: 'Регистрация', icon: 'mdi-account-plus-outline', url: '/registration'},
+      { title: 'Регистрация', icon: 'mdi-account-plus-outline', url: '/registration'}
     ],
     right: null,
   }),
+  computed: {
+    error () {
+      return this.$store.getters.error
+    },
+    isUserLoggedIn () {
+      this.$store.getters.isUserLoggedIn
+    },
+    items () {
+      if (this.isUserLoggedIn) {
+        return [
+          { title: 'Профиль', icon: 'mdi-account-outline', url: '/profile'},
+          { title: 'Календарь', icon: 'mdi-calendar-month', url: '/calendar'},
+          { title: 'Диалоги', icon: 'mdi-forum-outline', url: '/dialogue'},
+          { title: 'Закладки', icon: 'mdi-bookmark-multiple-outline', url: '/bookmarks'},
+          { title: 'Оповещения', icon: 'mdi-bell-ring-outline', url: '/alerts'},
+          { title: 'Настройки', icon: 'mdi-settings-outline', url: '/settings'}
+        ]
+      }
+
+      return [
+        { title: 'О нас', icon: 'mdi-information-outline', url: '/about'},
+        { title: 'Войти', icon: 'mdi-login', url: '/login'},
+        { title: 'Регистрация', icon: 'mdi-account-plus-outline', url: '/registration'}
+      ]
+    }
+  },
+  methods: {
+    closeError () {
+      this.$store.dispatch('clearError')
+    }
+  }
 };
 </script>
 

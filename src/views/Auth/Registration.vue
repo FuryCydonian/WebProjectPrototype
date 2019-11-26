@@ -71,16 +71,13 @@
             <v-btn 
               color="blue-grey darken-1"
               @click="onSubmit"
-              :disabled="!(valid)"
+              :loading="loading"
+              :disabled="!(valid) || loading"
             >
               Регистрация
             </v-btn>
           </v-card-actions>
         </v-card>
-
-        <!-- <pre>
-          {{ $v.email }}
-        </pre> -->
       </v-col>
     </v-row>
   </v-container>
@@ -128,6 +125,11 @@ export default {
       sameAs: sameAs('password')
     }
   },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
+    }
+  },
   methods: {
     onSubmit () {
       if (this.$refs.form.validate()) {
@@ -135,8 +137,12 @@ export default {
           email: this.email,
           password: this.password
         }
-        console.log(user)
-        
+
+        this.$store.dispatch('registerUser', user)
+          .then(() => {
+            this.$router.push('/')
+          })
+          .catch(() => {})
       }
     }
   }
