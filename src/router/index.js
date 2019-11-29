@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import AuthGuard from './auth-guard'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Dialogue from '../views/User/Dialogue.vue'
@@ -33,7 +34,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Dialogue// () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Dialogue,
+    beforeEnter: AuthGuard
   },
   {
     path: '/profile',
@@ -41,7 +43,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Profile// () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Profile,
+    beforeEnter: AuthGuard
   },
   {
     path: '/calendar',
@@ -49,7 +52,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Calendar// () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Calendar,
+    beforeEnter: AuthGuard
   },
   {
     path: '/bookmarks',
@@ -57,7 +61,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Bookmarks// () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Bookmarks,
+    beforeEnter: AuthGuard
   },
   {
     path: '/alerts',
@@ -65,7 +70,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Alerts// () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Alerts,
+    beforeEnter: AuthGuard
   },
   {
     path: '/settings',
@@ -73,7 +79,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Settings// () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Settings,
+    beforeEnter: AuthGuard
   },
   {
     path: '/login',

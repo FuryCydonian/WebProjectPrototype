@@ -131,6 +131,11 @@ export default {
           .catch(() => {})
       }
     }
+  },
+  created () {
+    if (this.$route.query['loginError']) {
+      this.$store.dispatch('setError', 'Пожалуйста, войдите для доступа к этой странице')
+    }
   }
   
 }
